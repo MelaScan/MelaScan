@@ -1,0 +1,16 @@
+package com.example.melascan.feature_Prediction.domain.repository
+
+import com.example.melascan.feature_note.domain.model.Prediction
+import kotlinx.coroutines.flow.Flow
+
+interface PredictionRepository {
+
+    fun getPredictions(): Flow<List<Prediction>>
+
+    suspend fun getPredictionById(id: Int): Prediction?
+
+    suspend fun insertPrediction(prediction: Prediction)
+
+    suspend fun deletePrediction(prediction: Prediction)
+
+}
