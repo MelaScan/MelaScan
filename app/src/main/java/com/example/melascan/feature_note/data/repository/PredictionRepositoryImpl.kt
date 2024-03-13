@@ -3,7 +3,7 @@ package com.example.melascan.feature_note.data.repository
 
 
 import com.example.melascan.feature_Prediction.domain.repository.PredictionRepository
-import com.example.melascan.feature_note.data.data_source.PredictionDao
+import com.example.melascan.feature_note.data.data_source.prediction.PredictionDao
 import com.example.melascan.feature_note.domain.model.Prediction
 import kotlinx.coroutines.flow.Flow
 

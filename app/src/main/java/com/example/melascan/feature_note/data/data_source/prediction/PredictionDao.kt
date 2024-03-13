@@ -1,4 +1,4 @@
-package com.example.melascan.feature_note.data.data_source
+package com.example.melascan.feature_note.data.data_source.prediction
 
 import androidx.room.Dao
 import androidx.room.Delete

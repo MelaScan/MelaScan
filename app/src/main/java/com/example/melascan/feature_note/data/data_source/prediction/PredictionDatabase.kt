@@ -1,4 +1,4 @@
-package com.example.melascan.feature_note.data.data_source
+package com.example.melascan.feature_note.data.data_source.prediction
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
