@@ -32,3 +32,27 @@ val Typography = Typography(
     )
     */
 )
+
+val TabletTypography = Typography(
+    bodyLarge = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
+        fontSize = 40.sp,
+        lineHeight = 56.sp,
+        letterSpacing = 0.5.sp
+    ),
+    titleLarge = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
+        fontSize = 56.sp,
+        lineHeight = 68.sp,
+        letterSpacing = 0.sp
+    ),
+    labelSmall = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Medium,
+        fontSize = 26.sp,
+        lineHeight = 36.sp,
+        letterSpacing = 1.sp
+    )
+)

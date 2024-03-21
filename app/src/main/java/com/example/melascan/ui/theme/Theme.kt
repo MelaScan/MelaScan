@@ -2,6 +2,7 @@ package com.example.melascan.ui.theme
 
 import android.app.Activity
 import android.os.Build
+import android.util.Log
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -15,6 +16,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.example.melascan.feature_melascan.presentation.util.components.isTablet
 
 private val DarkColorScheme = darkColorScheme(
     primary = LightGreen,
@@ -70,10 +72,10 @@ fun MelaScanTheme(
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
     }
-
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = if(isTablet()) { TabletTypography } else Typography,
         content = content
     )
 }
+
