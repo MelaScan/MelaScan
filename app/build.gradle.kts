@@ -68,6 +68,16 @@ dependencies {
     implementation(libs.tensorflow.lite.support)
     implementation(libs.tensorflow.lite.metadata)
     implementation(libs.tensorflow.lite.gpu)
+
+    val camerax_version = "1.2.2"
+    implementation("androidx.camera:camera-core:${camerax_version}")
+    implementation("androidx.camera:camera-camera2:${camerax_version}")
+    implementation("androidx.camera:camera-lifecycle:${camerax_version}")
+    implementation("androidx.camera:camera-video:${camerax_version}")
+
+    implementation("androidx.camera:camera-view:${camerax_version}")
+    implementation("androidx.camera:camera-extensions:${camerax_version}")
+
     val roomVersion = "2.6.1"
 
     implementation("androidx.room:room-runtime:$roomVersion")

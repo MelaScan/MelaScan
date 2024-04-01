@@ -36,29 +36,8 @@ fun ImagesItem(
                 .fillMaxSize()
                 .clip(shape)
         )
-        val list = floatArrayOf(prediction.akiec, prediction.bcc, prediction.bkl, prediction.df, prediction.mel, prediction.nv, prediction.vasc)
-
-        var max: Float = Float.MIN_VALUE
-        var index = 0
-
-        list.forEachIndexed { i, item ->
-            if (item > max) {
-                max = item
-                index = i
-            }
-        }
-
-        val label = when (index) {
-            0 -> "Actinic Keratoses and Intraepithelial Carcinoma or Bowen's disease"
-            1 -> "Basal Cell Carcinoma "
-            2 -> "Benign Keratosis-Like Lesion"
-            3 -> "Dermatofibroma "
-            4 -> "Melanoma"
-            5 -> "Melanocytic Nevi"
-            6 -> "Vascular Lesions"
-            else -> "unknown"
-        }
-
-        Text("Strongest prediction: \'$label\' at ${max*100}%", color = Color.White)
+        Text(
+            text = if(prediction.benignOrMalignant < 0.5f && prediction.benignOrMalignant >= 0.0f) { "Benign" } else { "Malignant" }
+        )
     }
 }

@@ -8,6 +8,9 @@ sealed class Screen(val route: String) {
 
     object ImagePromptScreens {
         object One : Screen("img_prompt_one")
-        object Two : Screen("img_prompt_two")
     }
+
+    object TakePhoto: Screen("photo_screen")
+
+    object DataInput: Screen("data_input")
 }

@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature android:name="android.hardware.camera.any" android:required="true"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <application
         android:name=".MelaScanApp"
         android:allowBackup="true"
@@ -12,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MelaScan"
-        tools:targetApi="31">
+        tools:targetApi="32"
+        android:requestLegacyExternalStorage="true">
         <activity
             android:name=".feature_melascan.presentation.MainActivity"
             android:exported="true"

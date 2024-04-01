@@ -1,10 +1,11 @@
 package com.example.melascan.feature_melascan.presentation.util.components
 
 import android.annotation.SuppressLint
-import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,17 +18,19 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.FabPosition
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.melascan.feature_melascan.presentation.home_screen.DrawerRow
 import com.example.melascan.feature_melascan.presentation.util.Screen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -36,8 +39,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun MelaScaffold(navController: NavController, scope: CoroutineScope, floatingActionButton: (@Composable () -> Unit)? = null, compose: @Composable (paddingValues: PaddingValues) -> Unit) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
-
-    val currentContext = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -97,4 +98,21 @@ fun MelaScaffold(navController: NavController, scope: CoroutineScope, floatingAc
         }
     }
 
+}
+
+@Composable
+fun DrawerRow(imageVector: ImageVector, text: String, onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .clickable(onClick = onClick),
+    ) {
+        Icon(
+            imageVector = imageVector,
+            contentDescription = text,
+            tint = Color.Black,
+            modifier = Modifier
+                .weight(0.25f)
+        )
+        Text(text, modifier = Modifier.weight(0.5f), color = Color.Black)
+    }
 }

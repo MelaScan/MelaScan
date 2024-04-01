@@ -66,6 +66,7 @@ fun ImagesScreen(
                     navController.navigate(Screen.ImagePromptScreens.One.route)
                 } else {
                     Toast.makeText(context, "Redirect to Photo!", Toast.LENGTH_SHORT).show()
+                    navController.navigate(Screen.TakePhoto.route)
                 }
             },
             icon = { Icon(Icons.Filled.CameraAlt, "Camera action button") },

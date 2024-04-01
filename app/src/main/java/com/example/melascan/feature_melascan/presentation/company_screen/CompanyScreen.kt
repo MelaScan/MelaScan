@@ -65,6 +65,7 @@ fun CompanyScreen(
                 color = MaterialTheme.colorScheme.secondary
             )
             Spacer(modifier = Modifier.height(60.dp))
+            // TODO: Add Carousel of our sketches+little bit of info about each of us. Probably use a list of composable lambdas
             Text(
                 "Imagine some cool sketches of each of us or photos of each of us \uD83D\uDE0E",
                 textAlign = TextAlign.Center,

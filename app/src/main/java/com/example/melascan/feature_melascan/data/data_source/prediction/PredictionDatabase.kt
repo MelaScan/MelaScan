@@ -6,13 +6,13 @@ import com.example.melascan.feature_melascan.domain.model.Prediction
 
 @Database(
     entities = [Prediction::class],
-    version = 1
+    version = 2
 )
 abstract class PredictionDatabase : RoomDatabase() {
 
     abstract val predictionDao: PredictionDao
 
     companion object {
-        const val DATABASE_NAME = "PredictionDB"
+        const val DATABASE_NAME = "PredictionsDB"
     }
 }

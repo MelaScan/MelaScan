@@ -1,11 +1,8 @@
 package com.example.melascan.feature_melascan.presentation.images_screen
 
-import android.content.Context
 import android.graphics.Bitmap
-import android.widget.Toast
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,7 +13,6 @@ import com.example.melascan.feature_melascan.domain.use_case.prompts.PromptsUseC
 import com.example.melascan.feature_melascan.domain.util.OrderType
 import com.example.melascan.feature_melascan.domain.util.PredictionsOrder
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

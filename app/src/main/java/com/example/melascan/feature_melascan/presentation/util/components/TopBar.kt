@@ -38,6 +38,7 @@ fun MelaTopBar(navController: NavController, isIconVisible: Boolean = true, onTo
                     Icon(
                         imageVector = Icons.Filled.Menu,
                         contentDescription = "Menu",
+                        tint = MaterialTheme.colorScheme.secondary
                     )
                 }
             }
