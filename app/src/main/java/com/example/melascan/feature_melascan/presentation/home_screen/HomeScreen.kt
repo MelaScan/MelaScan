@@ -15,10 +15,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.melascan.R
 import com.example.melascan.feature_melascan.presentation.util.components.MelaScaffold
 import com.example.melascan.feature_melascan.presentation.util.fonts.ibarra_real
 
@@ -40,7 +42,7 @@ fun HomeScreen(
         ) {
             Spacer(modifier = Modifier.height(60.dp))
             Text(
-                text = "MelaScan aims to make skin cancer diagnoses more accessible by creating a device that uses AI-based monitoring to analyze the user's worrisome lesions from the comfort of one’s home.\n",
+                text = stringResource(id = R.string.mission_statement),
                 style = MaterialTheme.typography.bodyLarge,
                 fontFamily = ibarra_real,
                 fontWeight = FontWeight.Normal,
@@ -53,7 +55,7 @@ fun HomeScreen(
 
             Divider()
             Text(
-                text="Note that this is not professional medical advice. Any concerns about your skin should be addressed by a professional dermatologist.",
+                text= stringResource(id = R.string.disclaimer),
                 style = MaterialTheme.typography.bodyLarge,
                 fontFamily = ibarra_real,
                 fontWeight = FontWeight.Bold,

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MelaScan</string>
+    <string name="mission_statement">MelaScan aims to make skin cancer diagnoses more accessible by creating a device that uses AI-based monitoring to analyze the user\'s worrisome lesions from the comfort of one’s home.\n</string>
+    <string name="disclaimer">Note that this is not professional medical advice. Any concerns about your skin should be addressed by a professional dermatologist.</string>
 </resources>

@@ -5,9 +5,12 @@ sealed class PredictionsOrder(val orderType: OrderType) {
 
     class Date(orderType: OrderType) : PredictionsOrder(orderType)
 
+    class Diagnosis(orderType: OrderType): PredictionsOrder(orderType)
+
     fun copy(orderType: OrderType): PredictionsOrder {
         return when(this) {
             is Date -> Date(orderType)
+            is Diagnosis -> Diagnosis(orderType)
         }
     }
 

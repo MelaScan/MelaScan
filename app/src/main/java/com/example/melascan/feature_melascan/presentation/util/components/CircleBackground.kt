@@ -1,6 +1,7 @@
 package com.example.melascan.feature_melascan.presentation.util.components
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -10,7 +11,7 @@ import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.unit.dp
 @Composable
 fun CircleBackground() {
-    val onBg = MaterialTheme.colorScheme.onBackground
+    val onBg = Color(0xffd8dcd2)
     Canvas(modifier = Modifier.fillMaxSize()) {
         translate(left = 750f, top = -300f) {
             drawCircle(onBg, radius = 200.dp.toPx())

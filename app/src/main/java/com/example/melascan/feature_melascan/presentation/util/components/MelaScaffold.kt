@@ -76,14 +76,14 @@ fun MelaScaffold(navController: NavController, scope: CoroutineScope, floatingAc
                     ) {
                         navController.navigate(Screen.HomeScreen.route)
                     }
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(30.dp))
                     DrawerRow(
                         imageVector = Icons.Outlined.Image,
                         text = "Images",
                     ) {
                         navController.navigate(Screen.ImageScreen.route)
                     }
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(30.dp))
                     DrawerRow(
                         imageVector = Icons.Outlined.AccountCircle,
                         text = "Our Company",
@@ -109,10 +109,10 @@ fun DrawerRow(imageVector: ImageVector, text: String, onClick: () -> Unit) {
         Icon(
             imageVector = imageVector,
             contentDescription = text,
-            tint = Color.Black,
+            tint = MaterialTheme.colorScheme.secondary,
             modifier = Modifier
                 .weight(0.25f)
         )
-        Text(text, modifier = Modifier.weight(0.5f), color = Color.Black)
+        Text(text, modifier = Modifier.weight(0.5f), color = MaterialTheme.colorScheme.secondary)
     }
 }

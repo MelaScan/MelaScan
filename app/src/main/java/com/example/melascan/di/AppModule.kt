@@ -10,9 +10,10 @@ import com.example.melascan.feature_melascan.data.repository.PromptsRepositoryIm
 import com.example.melascan.feature_melascan.domain.repository.PromptsRepository
 import com.example.melascan.feature_melascan.domain.use_case.prediction.AddPrediction
 import com.example.melascan.feature_melascan.domain.use_case.prediction.DeletePrediction
-import com.example.melascan.feature_melascan.domain.use_case.prediction.GetImageFromPrediction
+import com.example.melascan.feature_melascan.domain.use_case.prediction.GetLatestPrediction
 import com.example.melascan.feature_melascan.domain.use_case.prediction.GetPrediction
 import com.example.melascan.feature_melascan.domain.use_case.prediction.GetPredictions
+import com.example.melascan.feature_melascan.domain.use_case.prediction.NukePredictions
 import com.example.melascan.feature_melascan.domain.use_case.prediction.PredictionUseCases
 import com.example.melascan.feature_melascan.domain.use_case.prompts.AddPrompts
 import com.example.melascan.feature_melascan.domain.use_case.prompts.GetPrompts
@@ -51,7 +52,8 @@ object AppModule {
             deletePrediction = DeletePrediction(repository),
             getPrediction = GetPrediction(repository),
             getPredictions = GetPredictions(repository),
-            getImageFromPrediction = GetImageFromPrediction(repository)
+            nukePredictions = NukePredictions(repository),
+            getLatestPrediction = GetLatestPrediction(repository),
         )
     }
 

@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.map
 class GetPredictions(
     private val repository: PredictionRepository
 ) {
-    /* TODO: add more ways of sorting results (i.e by photos with highest score in certain predictions) */
     operator fun invoke(
         predictionsOrder: PredictionsOrder = PredictionsOrder.Date(OrderType.Descending)
     ): Flow<List<Prediction>> {
@@ -19,11 +18,13 @@ class GetPredictions(
                 is OrderType.Ascending -> {
                     when(predictionsOrder) {
                         is PredictionsOrder.Date -> predictions.sortedBy { it.timestamp }
+                        is PredictionsOrder.Diagnosis -> predictions.sortedBy { it.benignOrMalignant }
                     }
                 }
                 is OrderType.Descending -> {
                     when(predictionsOrder) {
                         is PredictionsOrder.Date -> predictions.sortedByDescending { it.timestamp }
+                        is PredictionsOrder.Diagnosis -> predictions.sortedByDescending { it.benignOrMalignant }
                     }
                 }
             }

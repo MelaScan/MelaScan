@@ -31,7 +31,7 @@ fun EnumDropdown(
     onClick: (index: Int) -> Unit,
 ) {
     val context = LocalContext.current
-    val strList = list.map { it.name }
+    val strList = list.map { it.name.replace("(.)([A-Z])".toRegex(), "$1 $2") }
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(initialValue) }
 
@@ -54,19 +54,19 @@ fun EnumDropdown(
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
                 modifier = Modifier.menuAnchor(),
                 colors = ExposedDropdownMenuDefaults.textFieldColors(
-                    focusedTextColor = MaterialTheme.colorScheme.primary,
-                    unfocusedTextColor = MaterialTheme.colorScheme.primary,
-                    focusedLabelColor = MaterialTheme.colorScheme.primary,
-                    unfocusedLabelColor = MaterialTheme.colorScheme.primary,
-                    focusedContainerColor = MaterialTheme.colorScheme.secondary,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                    focusedTextColor = MaterialTheme.colorScheme.secondary,
+                    unfocusedTextColor = MaterialTheme.colorScheme.secondary,
+                    focusedLabelColor = MaterialTheme.colorScheme.secondary,
+                    unfocusedLabelColor = MaterialTheme.colorScheme.secondary,
+                    focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 )
             )
 
             ExposedDropdownMenu(
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
-                modifier = Modifier.background(MaterialTheme.colorScheme.secondary)
+                modifier = Modifier.background(MaterialTheme.colorScheme.secondaryContainer)
             ) {
                 strList.forEachIndexed { index, item ->
                     DropdownMenuItem(

@@ -1,16 +1,22 @@
 package com.example.melascan.feature_melascan.presentation.util
 
 sealed class Screen(val route: String) {
-    object HomeScreen: Screen("home_screen")
-    object ImageScreen: Screen("image_screen")
+    data object HomeScreen: Screen("home_screen")
+    data object ImageScreen: Screen("images_screen")
 
-    object CompanyScreen: Screen("company_screen")
+    data object CompanyScreen: Screen("company_screen")
 
     object ImagePromptScreens {
-        object One : Screen("img_prompt_one")
+        data object One : Screen("img_prompt_one")
     }
 
-    object TakePhoto: Screen("photo_screen")
+    data object TakePhoto: Screen("photo_screen")
 
-    object DataInput: Screen("data_input")
+    data object DataInput: Screen("data_input")
+
+    data object PredictionScreen: Screen("prediction_screen")
+
+    data object ImageViewScreen: Screen("image_screen") // this is a cheap fix
+
+    data object ImageSelectScreen: Screen("image_select_screen")
 }

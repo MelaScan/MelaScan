@@ -20,25 +20,21 @@ class DataViewModel @Inject constructor(
                 dataEvent.func.invoke(state.value)
             }
             is DataEvent.UpdatedAge -> {
-                _state.value = DataState(
-                    age = dataEvent.age,
-                    bodyLocation = _state.value.bodyLocation,
-                    modelSizes = _state.value.modelSizes
+                _state.value = _state.value.copy(
+                    age = dataEvent.age
                 )
             }
-            is DataEvent.UpdatedLocationDropdown -> {
-                _state.value = DataState(
-                    age = _state.value.age,
-                    bodyLocation = dataEvent.bodyLocation,
-                    modelSizes = _state.value.modelSizes
+            is DataEvent.UpdateLocationDropdown -> {
+                _state.value = _state.value.copy(
+                    bodyLocation = dataEvent.bodyLocation
                 )
             }
             is DataEvent.UpdatedModelSize -> {
-                _state.value = DataState(
-                    age = _state.value.age,
-                    bodyLocation = _state.value.bodyLocation,
-                    modelSizes = dataEvent.modelSizes
-                )
+                _state.value = _state.value.copy(modelSizes = dataEvent.modelSizes)
+            }
+
+            is DataEvent.UpdatePrivateCheckbox -> {
+                _state.value = _state.value.copy(isHidden = dataEvent.value)
             }
         }
     }

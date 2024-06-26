@@ -1,6 +1,10 @@
 package com.example.melascan.feature_melascan.presentation.images_screen
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -13,17 +17,22 @@ import com.example.melascan.feature_melascan.domain.use_case.prompts.PromptsUseC
 import com.example.melascan.feature_melascan.domain.util.OrderType
 import com.example.melascan.feature_melascan.domain.util.PredictionsOrder
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.InputStream
 import javax.inject.Inject
+
 
 @HiltViewModel
 class ImagesViewModel @Inject constructor(
     private val predictionUseCases: PredictionUseCases,
     private val promptUseCases: PromptsUseCases,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     private val _state = mutableStateOf(ImagesState())
     val state: State<ImagesState> = _state
@@ -32,12 +41,34 @@ class ImagesViewModel @Inject constructor(
     private var getPromptsJob: Job? = null
 
     init {
+        /*viewModelScope.launch {
+            predictionUseCases.nukePredictions() // :)
+        }*/
         getImages(PredictionsOrder.Date(OrderType.Descending))
         getPrompts()
     }
 
-    suspend fun getBitmap(prediction: Prediction): Bitmap? {
-        return prediction.id?.let { predictionUseCases.getImageFromPrediction(it) }
+
+    fun getBitmap(context: Context, prediction: Prediction): Bitmap? {
+        return state.value.bitmaps[prediction.id]
+            ?: run {
+                viewModelScope.launch {
+                    val bitmap = loadBitmap(context, prediction)
+                    _state.value = state.value.copy(
+                        bitmaps = state.value.bitmaps + (prediction.id!! to bitmap)
+                    )
+                }
+                null
+            }
+    }
+
+    private suspend fun loadBitmap(context: Context, prediction: Prediction): Bitmap {
+        val uriImage = Uri.parse(prediction.photoPath)
+        return withContext(Dispatchers.IO) {
+            ImageDecoder.createSource(context.contentResolver, uriImage).let {
+                ImageDecoder.decodeBitmap(it)
+            }
+        }
     }
 
     fun onEvent(event: ImagesEvent) {
@@ -66,8 +97,17 @@ class ImagesViewModel @Inject constructor(
         getImagesJob?.cancel()
         getImagesJob = predictionUseCases.getPredictions(predictionsOrder)
             .onEach { predictions ->
+
+                val newList = predictions.toMutableList()
+
+                // remove duplicates
+                val set = mutableSetOf<String>()
+                newList.removeIf { prediction ->
+                    !set.add(prediction.photoPath)
+                }
+
                 _state.value = state.value.copy(
-                    predictions = predictions,
+                    predictions = newList,
                     predictionsOrder = predictionsOrder
                 )
             }

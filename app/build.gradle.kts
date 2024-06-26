@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.ir.backend.js.compile
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
@@ -64,6 +66,9 @@ android {
 }
 
 dependencies {
+
+    implementation("com.jaredrummler:android-device-names:2.1.1")
+
     implementation("androidx.compose.material:material-icons-extended:1.6.3")
     implementation(libs.tensorflow.lite.support)
     implementation(libs.tensorflow.lite.metadata)

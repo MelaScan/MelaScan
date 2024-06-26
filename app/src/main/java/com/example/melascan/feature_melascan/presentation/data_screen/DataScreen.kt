@@ -1,20 +1,16 @@
 package com.example.melascan.feature_melascan.presentation.data_screen
 
 import NounAi1235933
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
-import android.provider.MediaStore
 import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -22,22 +18,19 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -50,15 +43,15 @@ import androidx.navigation.NavController
 import com.example.melascan.feature_melascan.domain.AI.ModelSizes
 import com.example.melascan.feature_melascan.domain.model.BodyLocation
 import com.example.melascan.feature_melascan.presentation.data_screen.components.EnumDropdown
+import com.example.melascan.feature_melascan.presentation.util.Screen
 import com.example.melascan.feature_melascan.presentation.util.components.CircleBackground
 import com.example.melascan.feature_melascan.presentation.util.components.MelaTopBar
-import kotlinx.coroutines.flow.StateFlow
-import java.io.File
 
 @Composable
 fun DataScreen(
     navController: NavController,
     filename: String?,
+    lambda: (DataState) -> Unit,
     viewModel: DataViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -66,13 +59,14 @@ fun DataScreen(
     val bmp = ImageDecoder.createSource(context.contentResolver, uriImage).let {
         ImageDecoder.decodeBitmap(it)
     }
+
     Scaffold(
         topBar = {
             MelaTopBar(navController = navController, isIconVisible = false) {}
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                text = { Text("Predict!", color=MaterialTheme.colorScheme.primary) },
+                text = { Text("Predict!", color=MaterialTheme.colorScheme.onPrimaryContainer,) },
                 icon = { Icon(
                             NounAi1235933,
                             "ai brain",
@@ -82,10 +76,23 @@ fun DataScreen(
                 },
                 onClick = {
                     viewModel.onEvent(DataEvent.NavigateToAI { _ ->
+                        when(viewModel.state.value.age) {
+                            null -> {
+                                Toast.makeText(context, "Fill in a value!", Toast.LENGTH_SHORT).show()
+                                return@NavigateToAI
+                            }
+                            in 101..Int.MAX_VALUE -> {
+                                Toast.makeText(context, "Please fill in a number under 100!", Toast.LENGTH_SHORT).show()
+                                return@NavigateToAI
+                            }
+                        }
+
                         Toast.makeText(context, "Navigate to AI prediction screen!", Toast.LENGTH_SHORT).show()
+                        lambda.invoke(viewModel.state.value)
+                        navController.navigate("${Screen.PredictionScreen.route}/$filename")
                     })
                 },
-                containerColor = MaterialTheme.colorScheme.tertiary,
+                containerColor = MaterialTheme.colorScheme.onSecondary,
             )
         },
         floatingActionButtonPosition = FabPosition.Center
@@ -111,30 +118,30 @@ fun DataScreen(
             }
 
             Spacer(modifier = Modifier.height(10.dp))
-            Text("Fill out with your age below!", color = MaterialTheme.colorScheme.primary)
+            Text("Fill out with your age below!", color = MaterialTheme.colorScheme.secondary)
             Spacer(modifier = Modifier.height(10.dp))
             TextField(
                 value = if(viewModel.state.value.age == null) "" else { viewModel.state.value.age.toString() },
-                onValueChange = {str ->
-                    if (str.isDigitsOnly()) {
-                        viewModel.onEvent(DataEvent.UpdatedAge(str.toInt()))
-                    } else if(str.isEmpty()) {
+                onValueChange = { str ->
+                    if(str.isEmpty()) {
                         viewModel.onEvent(DataEvent.UpdatedAge(null))
+                    } else if (str.isDigitsOnly()) {
+                        viewModel.onEvent(DataEvent.UpdatedAge(str.toInt()))
                     }
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 colors = TextFieldDefaults.colors(
-                    focusedTextColor = MaterialTheme.colorScheme.primary,
-                    unfocusedTextColor = MaterialTheme.colorScheme.primary,
-                    focusedContainerColor = MaterialTheme.colorScheme.secondary,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+                    focusedTextColor = MaterialTheme.colorScheme.secondary,
+                    unfocusedTextColor = MaterialTheme.colorScheme.secondary,
+                    focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 )
             )
 
             Spacer(modifier = Modifier.height(20.dp))
             Text(
                 "Select the body location of the lesion",
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.secondary,
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(10.dp))
@@ -142,14 +149,14 @@ fun DataScreen(
                 initialValue = BodyLocation.Torso.name,
                 list = BodyLocation.entries,
                 onClick = { index ->
-                    viewModel.onEvent(DataEvent.UpdatedLocationDropdown(BodyLocation.entries[index]))
+                    viewModel.onEvent(DataEvent.UpdateLocationDropdown(BodyLocation.entries[index]))
                 },
             )
 
             Spacer(modifier = Modifier.height(20.dp))
             Text(
                 text = "Select the size of the model you wish. The larger the model the longer it'll take to run and may increase in accuracy.",
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.secondary,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(horizontal = 20.dp)
             )
@@ -159,9 +166,30 @@ fun DataScreen(
                 list = ModelSizes.entries,
                 onClick = { index ->
                     viewModel.onEvent(DataEvent.UpdatedModelSize(ModelSizes.entries[index]))
-            })
+                }
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Checkbox(
+                    modifier = Modifier.align(Alignment.CenterVertically),
+                    // below line we are setting
+                    // the state of checkbox.
+                    checked = viewModel.state.value.isHidden,
+                    // below line is use to add on check
+                    // change to our checkbox.
+                    onCheckedChange = { viewModel.onEvent(
+                        DataEvent.UpdatePrivateCheckbox(
+                            !viewModel.state.value.isHidden
+                        )
+                    ) },
+                )
+                Text(text = "Make Photo Hidden", modifier = Modifier.padding(16.dp))
+            }
 
-            Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(75.dp))
 
         }
     }

@@ -5,6 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface PredictionRepository {
 
+    suspend fun nukeTheRepository()
+
     fun getPredictions(): Flow<List<Prediction>>
 
     suspend fun getPredictionById(id: Int): Prediction?
@@ -12,5 +14,9 @@ interface PredictionRepository {
     suspend fun insertPrediction(prediction: Prediction)
 
     suspend fun deletePrediction(prediction: Prediction)
+
+    suspend fun getSize(): Int
+
+    suspend fun getLatestPrediction(): Prediction
 
 }

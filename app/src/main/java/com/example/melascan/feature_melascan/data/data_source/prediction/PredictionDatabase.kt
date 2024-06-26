@@ -6,7 +6,7 @@ import com.example.melascan.feature_melascan.domain.model.Prediction
 
 @Database(
     entities = [Prediction::class],
-    version = 2
+    version = 4
 )
 abstract class PredictionDatabase : RoomDatabase() {
 

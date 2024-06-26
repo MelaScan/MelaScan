@@ -1,7 +1,6 @@
 package com.example.melascan.feature_melascan.presentation.images_screen
 
-import android.graphics.Bitmap
-import android.graphics.Paint.Align
+import NounHidden598316
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -11,6 +10,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -36,6 +36,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
@@ -46,7 +47,6 @@ import com.example.melascan.feature_melascan.presentation.images_screen.componen
 import com.example.melascan.feature_melascan.presentation.images_screen.components.OrderSection
 import com.example.melascan.feature_melascan.presentation.util.Screen
 import com.example.melascan.feature_melascan.presentation.util.components.MelaScaffold
-import kotlinx.coroutines.launch
 
 @Composable
 fun ImagesScreen(
@@ -66,7 +66,7 @@ fun ImagesScreen(
                     navController.navigate(Screen.ImagePromptScreens.One.route)
                 } else {
                     Toast.makeText(context, "Redirect to Photo!", Toast.LENGTH_SHORT).show()
-                    navController.navigate(Screen.TakePhoto.route)
+                    navController.navigate(Screen.ImageSelectScreen.route)
                 }
             },
             icon = { Icon(Icons.Filled.CameraAlt, "Camera action button") },
@@ -92,7 +92,7 @@ fun ImagesScreen(
                 Text(
                     text = "Your Images",
                     style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.secondary
                 )
                 IconButton(onClick = {
                     viewModel.onEvent(ImagesEvent.ToggleOrderSection)
@@ -100,7 +100,7 @@ fun ImagesScreen(
                     Icon(
                         imageVector = Icons.AutoMirrored.Default.Sort,
                         contentDescription = "Sort",
-                        tint = MaterialTheme.colorScheme.secondary
+                        tint = MaterialTheme.colorScheme.tertiary
                     )
                 }
             }
@@ -124,12 +124,13 @@ fun ImagesScreen(
                 Text(
                     "Currently you haven't take any photos. Try taking one by clicking the button below!",
                     textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.secondary
                 )
             }
 
+            /**/
             LazyVerticalStaggeredGrid(
-                columns = StaggeredGridCells.Adaptive(200.dp),
+                columns = StaggeredGridCells.Fixed(2),
                 verticalItemSpacing = 4.dp,
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 modifier = Modifier
@@ -143,28 +144,50 @@ fun ImagesScreen(
                             prediction.id!!
                         }
                     ) { prediction ->
-                        var bitmap: Bitmap = Bitmap.createBitmap(800, 800, Bitmap.Config.ARGB_8888)
-                        bitmap.eraseColor(0xFF3a422f)
 
-                        // this is heinous and probably really slow. I'll need to test in the future.
-                        LaunchedEffect(prediction) {
-                            val temp = viewModel.getBitmap(prediction)
-
-                            if (temp != null) {
-                                bitmap = temp
+                        if(prediction.isHidden) {
+                            Box(
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(15.dp))
+                                    .background(MaterialTheme.colorScheme.secondaryContainer)
+                                    .height(prediction.height.dp)
+                                    .clickable {
+                                        navController.navigate("${Screen.ImageViewScreen.route}/${prediction.id ?: 1}")
+                                    }
+                            ) {
+                                Icon(
+                                    imageVector = NounHidden598316,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.secondary,
+                                    modifier = Modifier
+                                        .align(Alignment.Center)
+                                        .fillMaxSize()
+                                )
+                                Text(
+                                    "Tap to view!",
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                    modifier = Modifier
+                                        .align(Alignment.BottomCenter)
+                                )
                             }
-                        }
+                        } else {
 
-                        ImagesItem(
-                            prediction = prediction,
-                            bitmap = bitmap,
-                            modifier = Modifier.clickable {
-                                Toast.makeText(
-                                    context,
-                                    "Redirect to prediction/${prediction.id}",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            })
+                            var bitmap = viewModel.getBitmap(context, prediction)
+
+                            LaunchedEffect(viewModel.state.value.bitmaps) {
+                                bitmap = viewModel.state.value.bitmaps[prediction.id!!]
+                            }
+
+                            ImagesItem(
+                                prediction = prediction,
+                                bitmap = bitmap,
+                                modifier = Modifier
+                                    .height(prediction.height.dp)
+                                    .clickable {
+                                        navController.navigate("${Screen.ImageViewScreen.route}/${prediction.id ?: 1}")
+                                    },
+                            )
+                        }
                     }
                 }
             }

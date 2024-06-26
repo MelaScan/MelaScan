@@ -4,7 +4,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,9 +15,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowRightAlt
-import androidx.compose.material.icons.filled.ArrowRightAlt
 import androidx.compose.material.icons.filled.CameraAlt
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -34,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.draw
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -48,7 +44,7 @@ import kotlinx.coroutines.launch
 
 val imgPromptMap: HashMap<Int, @Composable (NavController) -> Unit> = hashMapOf(
     0 to {
-        promptSVGDisplay(id = R.drawable.close_up_prompt) {
+        PromptSVGDisplay(id = R.drawable.close_up_prompt) {
             Text(
                 "Make sure the photo of the lesion is up close to the camera and centered!",
                 color = MaterialTheme.colorScheme.primary,
@@ -57,7 +53,7 @@ val imgPromptMap: HashMap<Int, @Composable (NavController) -> Unit> = hashMapOf(
         }
     },
     1 to {
-        promptSVGDisplay(id = R.drawable.light_prompt) {
+        PromptSVGDisplay(id = R.drawable.light_prompt) {
             Text(
                 "Make sure the photo is well lit and visible.",
                 color = MaterialTheme.colorScheme.primary,
@@ -67,17 +63,15 @@ val imgPromptMap: HashMap<Int, @Composable (NavController) -> Unit> = hashMapOf(
     },
     2 to {
         val circleColor = MaterialTheme.colorScheme.primary
-        promptSVGDisplay(id = R.drawable.phone_prompt, it) {
+        PromptSVGDisplay(id = R.drawable.phone_prompt, it) {
             Text("Good Luck on the photo!", color = MaterialTheme.colorScheme.primary)
             Spacer(modifier = Modifier.height(30.dp))
             IconButton(onClick = {
-                // this should crash rn
                 it?.navigate(Screen.TakePhoto.route)
             },
             colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.primary),
             modifier = Modifier
-                .height(40.dp)
-                .width(40.dp)
+                .scale(1.5f)
                 .drawBehind {
                     translate(left = 50f, top = -45f) {
                         drawCircle(circleColor, radius = 7.dp.toPx())
@@ -88,11 +82,12 @@ val imgPromptMap: HashMap<Int, @Composable (NavController) -> Unit> = hashMapOf(
                     translate(left = 45f, top = 32.5f) {
                         drawCircle(circleColor, radius = 4.dp.toPx())
                     }
-                }) {
+                }
+            ) {
                 Icon(
                     imageVector = Icons.Filled.CameraAlt,
                     null,
-                    tint = MaterialTheme.colorScheme.tertiary
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }
         }
@@ -100,7 +95,7 @@ val imgPromptMap: HashMap<Int, @Composable (NavController) -> Unit> = hashMapOf(
 )
 
 @Composable
-fun promptSVGDisplay(id: Int, navController: NavController? = null, compose: (@Composable (NavController?) -> Unit)) {
+fun PromptSVGDisplay(id: Int, navController: NavController? = null, compose: (@Composable (NavController?) -> Unit)) {
     Image(
         painter = painterResource(id = id),
         contentDescription = null,

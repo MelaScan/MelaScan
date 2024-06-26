@@ -10,6 +10,10 @@ import kotlinx.coroutines.flow.Flow
 class PredictionRepositoryImpl(
     private val dao: PredictionDao
 ): PredictionRepository {
+    override suspend fun nukeTheRepository() {
+        dao.clearRepository()
+    }
+
     override fun getPredictions(): Flow<List<Prediction>> {
         return dao.getPredictions()
     }
@@ -24,5 +28,13 @@ class PredictionRepositoryImpl(
 
     override suspend fun deletePrediction(prediction: Prediction) {
         dao.deletePrediction(prediction)
+    }
+
+    override suspend fun getSize(): Int {
+        return dao.getSize()
+    }
+
+    override suspend fun getLatestPrediction(): Prediction {
+        return dao.getLatestPrediction()
     }
 }

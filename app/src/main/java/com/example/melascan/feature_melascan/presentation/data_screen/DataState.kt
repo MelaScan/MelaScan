@@ -6,5 +6,6 @@ import com.example.melascan.feature_melascan.domain.model.BodyLocation
 data class DataState(
     val age: Int? = null,
     val bodyLocation: BodyLocation = BodyLocation.Torso,
-    val modelSizes: ModelSizes = ModelSizes.Balanced
+    val modelSizes: ModelSizes = ModelSizes.Balanced,
+    val isHidden: Boolean = false
 )

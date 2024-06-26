@@ -12,6 +12,8 @@ data class Prediction(
     val benignOrMalignant: Float, // 0 for benign and 1 for malignant.
     val timestamp: Long, // time of when the photo was taken (helps for metrics and will identify photo if moved around on device (low chances of same photo having perfectly matching timestamps))
     val photoPath: String, // path to the photo
+    val height: Int = 100, // height for the displayed image
+    val isHidden: Boolean = false, // is the image hidden
     @PrimaryKey val id: Int? = null
 ) {
     companion object {
@@ -27,11 +29,15 @@ data class Prediction(
 }
 
 enum class BodyLocation {
-    Head,
-    Torso,
+    HeadOrNeck,
+    AnteriorTorso,
+    LateralTorso,
     UpperExtremity,
     LowerExtremity,
     PalmsSoles,
+    OralGenital,
+    Torso,
+    PosteriorTorso
 }
 
 class InvalidPredictionException(message: String) : Exception(message)

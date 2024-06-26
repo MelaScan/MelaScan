@@ -10,6 +10,14 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PredictionDao {
+
+    // get size of the repository
+    @Query("SELECT COUNT(photoPath) FROM prediction")
+    suspend fun getSize(): Int
+
+    @Query("DELETE FROM prediction")
+    suspend fun clearRepository()
+
     @Query("SELECT * FROM prediction")
     fun getPredictions(): Flow<List<Prediction>>
 
@@ -21,4 +29,7 @@ interface PredictionDao {
 
     @Delete
     suspend fun deletePrediction(prediction: Prediction)
+
+    @Query("SELECT * FROM prediction WHERE timestamp = (SELECT MAX(timestamp) FROM prediction)")
+    suspend fun getLatestPrediction(): Prediction
 }

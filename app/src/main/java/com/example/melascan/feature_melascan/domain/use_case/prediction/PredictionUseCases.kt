@@ -5,5 +5,6 @@ data class PredictionUseCases(
     val deletePrediction: DeletePrediction,
     val getPrediction: GetPrediction,
     val getPredictions: GetPredictions,
-    val getImageFromPrediction: GetImageFromPrediction
+    val nukePredictions: NukePredictions,
+    val getLatestPrediction: GetLatestPrediction
 )
