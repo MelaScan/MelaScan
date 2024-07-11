@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.ir.backend.js.compile
-
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
@@ -66,22 +64,20 @@ android {
 }
 
 dependencies {
-
-    implementation("com.jaredrummler:android-device-names:2.1.1")
-
     implementation("androidx.compose.material:material-icons-extended:1.6.3")
+    // https://mvnrepository.com/artifact/org.tensorflow/tensorflow-lite
     implementation(libs.tensorflow.lite.support)
     implementation(libs.tensorflow.lite.metadata)
     implementation(libs.tensorflow.lite.gpu)
 
-    val camerax_version = "1.2.2"
-    implementation("androidx.camera:camera-core:${camerax_version}")
-    implementation("androidx.camera:camera-camera2:${camerax_version}")
-    implementation("androidx.camera:camera-lifecycle:${camerax_version}")
-    implementation("androidx.camera:camera-video:${camerax_version}")
+    val cameraxVersion = "1.3.4"
+    implementation("androidx.camera:camera-core:${cameraxVersion}")
+    implementation("androidx.camera:camera-camera2:${cameraxVersion}")
+    implementation("androidx.camera:camera-lifecycle:${cameraxVersion}")
+    implementation("androidx.camera:camera-video:${cameraxVersion}")
 
-    implementation("androidx.camera:camera-view:${camerax_version}")
-    implementation("androidx.camera:camera-extensions:${camerax_version}")
+    implementation("androidx.camera:camera-view:${cameraxVersion}")
+    implementation("androidx.camera:camera-extensions:${cameraxVersion}")
 
     val roomVersion = "2.6.1"
 

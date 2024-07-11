@@ -5,10 +5,10 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.melascan.feature_melascan.domain.AI.ModelSizes
-import com.example.melascan.feature_melascan.domain.AI.Models.AIModel
-import com.example.melascan.feature_melascan.domain.AI.Models.BalancedModel
-import com.example.melascan.feature_melascan.domain.AI.Models.LiteModel
-import com.example.melascan.feature_melascan.domain.AI.Models.SuperModel
+import com.example.melascan.feature_melascan.domain.AI.models.AIModel
+import com.example.melascan.feature_melascan.domain.AI.models.BalancedModel
+import com.example.melascan.feature_melascan.domain.AI.models.LiteModel
+import com.example.melascan.feature_melascan.domain.AI.models.SuperModel
 import com.example.melascan.feature_melascan.domain.model.Prediction
 import com.example.melascan.feature_melascan.domain.use_case.prediction.PredictionUseCases
 import com.example.melascan.feature_melascan.presentation.data_screen.DataState

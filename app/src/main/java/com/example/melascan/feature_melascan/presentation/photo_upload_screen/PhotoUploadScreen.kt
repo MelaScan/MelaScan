@@ -1,5 +1,6 @@
 package com.example.melascan.feature_melascan.presentation.photo_upload_screen
 
+import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -32,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.PointerIcon.Companion.Text
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -67,10 +69,13 @@ fun NavRow(
 
 @Composable
 fun PhotoUploadScreen(navController: NavController,) {
+    val context = LocalContext.current
     var uriStr by remember { mutableStateOf("") }
     val pickMedia = rememberLauncherForActivityResult(contract = ActivityResultContracts.PickVisualMedia()) { uri ->
         uri?.let {
             uriStr = it.toString()
+            val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            context.contentResolver.takePersistableUriPermission(uri, flag)
         }
     }
     LaunchedEffect(uriStr) {

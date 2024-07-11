@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel
 class DataViewModel @Inject constructor(
     // shouldn't need anything in the constructor
 ): ViewModel() {
-    private val _state = mutableStateOf(DataState())
+    private val _state = mutableStateOf( DataState())
     val state: State<DataState> = _state
 
     fun onEvent(dataEvent: DataEvent) {
