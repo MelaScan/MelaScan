@@ -12,7 +12,9 @@ interface PromptsRepository {
 
     suspend fun insertPrompts(prompts: Prompts)
 
-    suspend fun setPrompts(prompts: Prompts)
+    suspend fun setPromptsPhoto(prompts: Prompts)
+
+    suspend fun setPromptsTopBar(prompts: Prompts)
 
     suspend fun deletePrompts(prompts: Prompts)
 

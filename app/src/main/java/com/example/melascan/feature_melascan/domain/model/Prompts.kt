@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 data class Prompts(
     // phrase all prompt vars as questions that are answered with t/f
     val promptedPhoto: Boolean = false,
+    val promptedTopBar: Boolean = false,
     @PrimaryKey val id: Int? = null
 )
 

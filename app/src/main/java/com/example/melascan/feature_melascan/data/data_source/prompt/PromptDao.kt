@@ -20,7 +20,10 @@ interface PromptDao {
     suspend fun insertPrompt(prompt: Prompts)
 
     @Query("UPDATE Prompts SET promptedPhoto = :promptedPhoto WHERE id = :id")
-    suspend fun setPrompt(promptedPhoto: Boolean, id: Int)
+    suspend fun setPromptPhoto(promptedPhoto: Boolean, id: Int)
+
+    @Query("UPDATE Prompts SET promptedTopBar = :promptedTopBar WHERE id = :id")
+    suspend fun setPromptBar(promptedTopBar: Boolean, id: Int)
 
     @Delete
     suspend fun deletePrompt(prompt: Prompts)

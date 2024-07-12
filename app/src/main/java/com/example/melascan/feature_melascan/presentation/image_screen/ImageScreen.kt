@@ -21,10 +21,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -39,11 +44,23 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.melascan.feature_melascan.domain.model.BodyLocation
+import com.example.melascan.feature_melascan.presentation.image_screen.util.ExpandableCard
+import com.example.melascan.feature_melascan.presentation.image_screen.util.ExpandableContent
 import com.example.melascan.feature_melascan.presentation.util.components.MelaScaffold
-import java.text.DateFormat
 import java.util.Calendar
 import java.util.TimeZone
 import kotlin.math.round
+
+val predictionStrings = arrayOf(
+    "% chance of Actinic Keratosis",
+    "% chance of Basal Cell Carcinoma",
+    "% chance of Benign Keratosis",
+    "% chance of Dermatofibroma",
+    "% chance of Squamous Cell Carcinoma",
+    "% chance of Vascular Lesion",
+    "% chance of Melanocytic nevus",
+    "% chance of Unknown or No Condition"
+)
 
 @Composable
 fun ImageScreen(
@@ -61,6 +78,8 @@ fun ImageScreen(
     } ?: Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
 
     var formatDate = getTime(imageViewModel.state.value?.timestamp) ?: "N/A" //
+
+    var isExpanded by remember { mutableStateOf(false) }
 
     LaunchedEffect(imageViewModel.state.value) {
         bmp = imageViewModel.state.value?.let {
@@ -104,12 +123,12 @@ fun ImageScreen(
                     .background(MaterialTheme.colorScheme.secondaryContainer),
             ) {
                     CircularProgressIndicator(
-                        progress = imageViewModel.state.value?.benignOrMalignant ?: 0f,
+                        progress = imageViewModel.state.value?.percentMelanoma ?: 0f,
                         modifier = Modifier.fillMaxWidth(),
                         color = MaterialTheme.colorScheme.secondary
                     )
                     Text(
-                        text = "${((imageViewModel.state.value?.benignOrMalignant ?: 0f) * 100).toInt()}% malignant",
+                        text = "${((imageViewModel.state.value?.percentMelanoma ?: 0f) * 100).toInt()}% melanoma",
                         modifier = Modifier.align(Alignment.Center),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                         textAlign = TextAlign.Center,
@@ -162,6 +181,13 @@ fun ImageScreen(
             )
 
             Spacer(modifier = Modifier.height(20.dp))
+
+            ExpandableCard(expanded = isExpanded) {
+                isExpanded = !isExpanded
+            }
+            ExpandableContent(isExpanded = isExpanded, strings = predictionStrings, prediction = imageViewModel.state.value)
+
+            Spacer(modifier = Modifier.height(30.dp))
             Text(
                 text = buildAnnotatedString {
                     withStyle(
@@ -190,7 +216,9 @@ fun ImageScreen(
                             fontSize = MaterialTheme.typography.bodyLarge.fontSize
                         )
                     ) {
-                        append(" to find out more from a local dermatologist and be sure to ask regarding your photo!")
+                        append(
+                            " to find out more from a local dermatologist and be sure to ask regarding your photo!"
+                        )
                     }
                 },
                 modifier = Modifier
@@ -203,14 +231,9 @@ fun ImageScreen(
                     },
                 textAlign = TextAlign.Center,
             )
+            Spacer(modifier = Modifier.height(50.dp))
         }
     }
-}
-
-fun Float.round(decimals: Int): Float {
-    var multiplier = 1.0f
-    repeat(decimals) { multiplier *= 10 }
-    return round(this * multiplier) / multiplier
 }
 
 fun getTime(long: Long?): String? {

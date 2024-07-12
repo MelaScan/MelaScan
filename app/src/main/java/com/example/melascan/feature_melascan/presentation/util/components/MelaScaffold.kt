@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Image
+import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
@@ -25,6 +26,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -37,12 +39,13 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MelaScaffold(navController: NavController, scope: CoroutineScope, floatingActionButton: (@Composable () -> Unit)? = null, compose: @Composable (paddingValues: PaddingValues) -> Unit) {
+fun MelaScaffold(navController: NavController, scope: CoroutineScope, onTopBarClick: (() -> Unit)? = null, floatingActionButton: (@Composable () -> Unit)? = null, compose: @Composable (paddingValues: PaddingValues,) -> Unit) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
 
     Scaffold(
         topBar = {
             MelaTopBar(navController = navController) {
+                onTopBarClick?.invoke()
                 scope.launch {
                     if (drawerState.isOpen) {
                         drawerState.close()

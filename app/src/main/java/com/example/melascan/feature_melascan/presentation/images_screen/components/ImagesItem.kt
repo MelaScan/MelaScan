@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.input.pointer.PointerIcon.Companion.Text
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.example.melascan.feature_melascan.domain.model.Prediction
@@ -47,7 +46,7 @@ fun ImagesItem(
                 contentAlignment = Alignment.BottomCenter
             ) {
                 Text(
-                    text = if (prediction.benignOrMalignant in (0.0f..0.5f)) {
+                    text = if (prediction.percentMelanoma in (0.0f..0.5f)) {
                         "Benign"
                     } else {
                         "Malignant"

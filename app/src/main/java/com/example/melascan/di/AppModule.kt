@@ -18,7 +18,8 @@ import com.example.melascan.feature_melascan.domain.use_case.prediction.Predicti
 import com.example.melascan.feature_melascan.domain.use_case.prompts.AddPrompts
 import com.example.melascan.feature_melascan.domain.use_case.prompts.GetPrompts
 import com.example.melascan.feature_melascan.domain.use_case.prompts.PromptsUseCases
-import com.example.melascan.feature_melascan.domain.use_case.prompts.SetPrompts
+import com.example.melascan.feature_melascan.domain.use_case.prompts.SetPromptsPhoto
+import com.example.melascan.feature_melascan.domain.use_case.prompts.SetPromptsTopBar
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -76,8 +77,9 @@ object AppModule {
     fun providePromptsUseCases(repository: PromptsRepository): PromptsUseCases {
         return PromptsUseCases(
             addPrompt = AddPrompts(repository),
-            setPrompts = SetPrompts(repository),
-            getPrompts = GetPrompts(repository)
+            setPromptsPhoto = SetPromptsPhoto(repository),
+            getPrompts = GetPrompts(repository),
+            setPromptsTopBar = SetPromptsTopBar(repository)
         )
     }
 

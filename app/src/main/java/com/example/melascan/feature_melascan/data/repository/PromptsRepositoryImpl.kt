@@ -24,8 +24,12 @@ class PromptsRepositoryImpl(
         return dao.deletePrompt(prompts)
     }
 
-    override suspend fun setPrompts(prompts: Prompts) {
-        return dao.setPrompt(prompts.promptedPhoto, 1) // should be a constant
+    override suspend fun setPromptsPhoto(prompts: Prompts) {
+        return dao.setPromptPhoto(prompts.promptedPhoto, 1) // should be a constant
+    }
+
+    override suspend fun setPromptsTopBar(prompts: Prompts) {
+        return dao.setPromptBar(prompts.promptedTopBar, 1)
     }
 
 }

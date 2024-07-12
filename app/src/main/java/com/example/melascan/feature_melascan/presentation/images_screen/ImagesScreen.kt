@@ -73,11 +73,11 @@ fun ImagesScreen(
             text = { Text(text = "Take a Photo") },
             containerColor = MaterialTheme.colorScheme.secondary
         )
-    }) {
+    }) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(it),
+                .padding(paddingValues),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

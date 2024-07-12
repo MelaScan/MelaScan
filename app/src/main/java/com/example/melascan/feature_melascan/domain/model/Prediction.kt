@@ -9,7 +9,15 @@ data class Prediction(
     // we're only storing essential information for the prediction.
     val ageApprox: Int,
     val anomSiteGeneral: Int,
-    val benignOrMalignant: Float, // 0 for benign and 1 for malignant.
+    val percentMelanoma: Float, // 0 for benign and 1 for malignant.
+    val percentAK: Float, // Actinic Keratosis
+    val percentBCC: Float, // Basal Cell Carcinomaa
+    val percentBKL: Float, // Benign Keratosis
+    val percentDF: Float, // Dermatofibroma
+    val percentSCC: Float, // Squamous cell carcinoma
+    val percentVASC: Float, // Vascular Lesion
+    val percentNEVUS: Float, // Melanocytic nevus
+    val percentOTHER: Float,// unknown
     val timestamp: Long, // time of when the photo was taken (helps for metrics and will identify photo if moved around on device (low chances of same photo having perfectly matching timestamps))
     val photoPath: String, // path to the photo
     val height: Int = 100, // height for the displayed image

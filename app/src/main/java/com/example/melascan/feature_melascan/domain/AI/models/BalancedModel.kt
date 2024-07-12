@@ -49,7 +49,7 @@ class BalancedModel(
         }
         println("List of floats $listOFloats")
 
-        val percentMelanoma = floatArray[MelanomaIndex.index]
+        val percentMelanoma = floatArray[MelanomaIndex.MEL]
 
         if (percentMelanoma.isNaN()) {
             throw Exception("Percent Melanoma is NaN!!!")
@@ -62,7 +62,15 @@ class BalancedModel(
         return Prediction(
             ageApprox = age,
             anomSiteGeneral = bodyLocation.ordinal,
-            benignOrMalignant = percentMelanoma,
+            percentMelanoma = percentMelanoma,
+            percentAK  = floatArray[MelanomaIndex.AK],
+            percentBCC = floatArray[MelanomaIndex.BCC],
+            percentBKL = floatArray[MelanomaIndex.BKL],
+            percentDF = floatArray[MelanomaIndex.DF],
+            percentSCC = floatArray[MelanomaIndex.SCC],
+            percentVASC = floatArray[MelanomaIndex.VASC],
+            percentNEVUS = floatArray[MelanomaIndex.NEVUS],
+            percentOTHER = floatArray[MelanomaIndex.OTHER],
             timestamp = System.currentTimeMillis(),
             photoPath = uriString,
             height = (150..300).random(),

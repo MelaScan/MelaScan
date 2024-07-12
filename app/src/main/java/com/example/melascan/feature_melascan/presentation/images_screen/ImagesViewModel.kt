@@ -140,7 +140,7 @@ class ImagesViewModel @Inject constructor(
     private fun setPrompts(prompts: Prompts) {
         // idk how to assign a job to this. oh well.
         viewModelScope.launch {
-            promptUseCases.setPrompts(prompts)
+            promptUseCases.setPromptsPhoto(prompts)
         }
     }
 

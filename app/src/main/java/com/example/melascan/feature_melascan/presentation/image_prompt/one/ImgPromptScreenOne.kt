@@ -67,7 +67,7 @@ val imgPromptMap: HashMap<Int, @Composable (NavController) -> Unit> = hashMapOf(
             Text("Good Luck on the photo!", color = MaterialTheme.colorScheme.primary)
             Spacer(modifier = Modifier.height(30.dp))
             IconButton(onClick = {
-                it?.navigate(Screen.TakePhoto.route)
+                it?.navigate(Screen.ImageSelectScreen.route)
             },
             colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.primary),
             modifier = Modifier

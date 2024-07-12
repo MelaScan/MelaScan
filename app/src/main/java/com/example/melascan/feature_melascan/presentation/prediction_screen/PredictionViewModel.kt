@@ -39,13 +39,13 @@ class PredictionViewModel @Inject constructor(
     ) {
         setPredictionJob?.cancel()
         val aiModel: AIModel = when(dataState.modelSizes) {
-            ModelSizes.Lite -> LiteModel(
+            /*ModelSizes.Lite -> LiteModel(
                 dataState.age!!,
                 dataState.bodyLocation,
                 fileName,
                 dataState.isHidden,
                 context
-            )
+            )*/
             ModelSizes.Balanced -> BalancedModel(
                 dataState.age!!,
                 dataState.bodyLocation,
@@ -53,13 +53,13 @@ class PredictionViewModel @Inject constructor(
                 dataState.isHidden,
                 context
             )
-            ModelSizes.Super -> SuperModel(
+            /*ModelSizes.Super -> SuperModel(
                 dataState.age!!,
                 dataState.bodyLocation,
                 fileName,
                 dataState.isHidden,
                 context
-            )
+            )*/
         }
         setPredictionJob = GlobalScope.launch {
             prediction = aiModel.run()
