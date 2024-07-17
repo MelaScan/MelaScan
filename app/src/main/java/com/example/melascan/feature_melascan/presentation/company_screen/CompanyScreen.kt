@@ -1,7 +1,10 @@
 package com.example.melascan.feature_melascan.presentation.company_screen
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +24,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowLeft
 import androidx.compose.material.icons.automirrored.filled.ArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -33,10 +37,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon.Companion.Text
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import com.example.melascan.R
 import com.example.melascan.feature_melascan.presentation.util.components.MelaScaffold
@@ -105,11 +116,21 @@ fun DrawFounder(founderData: FounderData) {
     )
 }
 
+// 0: link, 1: name/what credit is for
+val artCreditArray: Array<Pair<String, String>> = arrayOf(
+    //Arrow by Maria Zamchy from <a href="https://thenounproject.com/browse/icons/term/arrow/" target="_blank" title="Arrow Icons">Noun Project</a> (CC BY 3.0)
+    Pair("https://thenounproject.com/browse/icons/term/arrow/", "Arrow by Maria Zamchy"),
+    //AI by mungang kim from <a href="https://thenounproject.com/browse/icons/term/ai/" target="_blank" title="AI Icons">Noun Project</a> (CC BY 3.0)
+    Pair("https://thenounproject.com/browse/icons/term/ai/", "AI by mungang kim")
+)
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CompanyScreen(
     navController: NavController
 ) {
+    val context = LocalContext.current
+
     val scope = rememberCoroutineScope()
 
     val pagerState = rememberPagerState {
@@ -136,7 +157,7 @@ fun CompanyScreen(
             )
             Spacer(modifier = Modifier.height(20.dp))
             Text(
-                text = "We want to democratize healthcare and skincare through advanced AI techniques on your own device.",
+                text = stringResource(id = R.string.company_mission_statement),
                 style = MaterialTheme.typography.bodyLarge,
                 fontFamily = ibarra_real,
                 fontWeight = FontWeight.Normal,
@@ -144,17 +165,16 @@ fun CompanyScreen(
                 color = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.padding(horizontal = 15.dp)
             )
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(35.dp))
             Text(
                 "Creators of MelaScan",
                 style = MaterialTheme.typography.titleLarge,
                 fontFamily = ibarra_real,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(padding),
                 color = MaterialTheme.colorScheme.secondary
             )
-            Spacer(modifier = Modifier.height(60.dp))
+            Spacer(modifier = Modifier.height(22.dp))
 
             HorizontalPager(state = pagerState) {
                 Card(
@@ -221,6 +241,85 @@ fun CompanyScreen(
                     }
                 }
             }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Text(
+                "Credit and Attributions for Artwork",
+                style = MaterialTheme.typography.titleLarge,
+                fontFamily = ibarra_real,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.secondary
+            )
+
+            Spacer(modifier = Modifier.height(25.dp))
+
+            for (artCredit in artCreditArray) {
+                Text(
+                    text=artCredit.second,
+                    style = MaterialTheme.typography.bodyMedium,
+                    textDecoration = TextDecoration.Underline,
+                    color = MaterialTheme.colorScheme.secondary,
+                    modifier = Modifier.clickable {
+                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(artCredit.first))
+                        startActivity(context, browserIntent,null)
+                    }
+                )
+                Spacer(modifier = Modifier.height(13.dp))
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Text(
+                "Special Thanks",
+                style = MaterialTheme.typography.titleLarge,
+                fontFamily = ibarra_real,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.secondary
+            )
+            
+            Spacer(modifier = Modifier.height(10.dp))
+            
+            
+            Text(
+                "Special thanks to Qishen Ha, @Bo, and @garybios for their work in the Kaggle SIIM-ISIC competition. Their open-source work has been invaluable in making this app possible.",
+                style = MaterialTheme.typography.bodyLarge,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(horizontal = 10.dp)
+            )
+            Spacer(modifier = Modifier.height(3.dp))
+            Divider(modifier = Modifier.fillMaxWidth(0.4f))
+
+            Spacer(modifier = Modifier.height(15.dp))
+
+            Text(
+                text = buildAnnotatedString {
+                    append(
+                        "Read their official explanation on how the model works "
+                    )
+                    withStyle(
+                        style = SpanStyle(
+                            textDecoration = TextDecoration.Underline
+                        )
+                    ) {
+                        append(
+                            "here"
+                        )
+                    }
+                },
+                color = MaterialTheme.colorScheme.secondary,
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Light,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(horizontal = 8.dp).clickable {
+                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.kaggle.com/competitions/siim-isic-melanoma-classification/discussion/175412"))
+                    startActivity(context, browserIntent,null)
+                }
+            )
+            Spacer(modifier = Modifier.height(30.dp))
 
         }
     }

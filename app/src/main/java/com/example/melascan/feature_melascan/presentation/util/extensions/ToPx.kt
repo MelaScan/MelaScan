@@ -1,0 +1,10 @@
+package com.example.melascan.feature_melascan.presentation.util.extensions
+
+import android.content.Context
+import android.util.TypedValue
+
+fun Context.toPx(dp: Int) = TypedValue.applyDimension(
+    TypedValue.COMPLEX_UNIT_DIP,
+    dp.toFloat(),
+    resources.displayMetrics
+)

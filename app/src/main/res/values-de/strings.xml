@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MelaScan</string>
+    <string name="home_mission_statement">"MelaScan zielt darauf ab, Hautkrebsdiagnosen zugänglicher zu machen, indem es eine auf Computer Vision basierende Überwachung entwickelt, um die besorgniserregenden Läsionen des Benutzers bequem von zu Hause aus zu analysieren. "</string>
+    <string name="home_disclaimer">Beachten Sie, dass dies keine professionelle medizinische Beratung ist. Alle Bedenken bezüglich Ihrer Haut sollten von einem professionellen Dermatologen behandelt werden.</string>
+    <string name="home_img_redirect">Zu den Bildern gehen?</string>
+    <string name="home_drawer_prompt">Psst, Bilder und Infos zur App sind hier!</string>
+    <string name="melanoma">melanoma</string>
+    <string name="AK">actinic keratosis</string>
+    <string name="BCC">basal cell carcinoma</string>
+    <string name="BKL">benign keratosis</string>
+    <string name="DF">dermatofibroma</string>
+    <string name="SCC">squamous cell carcinoma</string>
+    <string name="VASC">vascular lesion</string>
+    <string name="NEVUS">melanocytic nevus</string>
+    <string name="OTHER">andere/gutartige</string>
+    <string name="images_FAB">Mache Foto</string>
+    <string name="images_sort_title">Ihre Bilder</string>
+    <string name="images_empty_prompt">Sie haben noch keine Fotos gemacht. Versuchen Sie, eines zu machen, indem Sie auf die Schaltfläche unten klicken!</string>
+    <string name="images_hidden_prompt">Zur Ansicht antippen!</string>
+    <string name="images_radio_date">Datum</string>
+    <string name="images_radio_melanoma">Diagnose: Melanom</string>
+    <string name="images_radio_other">Diagnose: Andere</string>
+    <string name="image_AK">% Chance auf Aktinische Keratose</string>
+    <string name="image_BCC">% Chance auf Basalzellkarzinom</string>
+    <string name="image_BKL">% Chance auf gutartige Keratose</string>
+    <string name="image_DF">% Chance auf Dermatofibrom</string>
+    <string name="image_SCC">% Chance auf Plattenepithelkarzinom</string>
+    <string name="image_VASC">% Chance auf vaskuläre Läsion</string>
+    <string name="image_NEVUS">% Chance auf melanozytären Naevus</string>
+    <string name="image_OTHER">% Chance auf Unbekannt oder Kein Zustand</string>
+    <string name="image_more_info">Weitere Informationen:</string>
+    <string name="image_bod_loc">-Standort des Körpers:</string>
+    <string name="prompt_map_0">Stellen Sie sicher, dass das Foto der Läsion nah an der Kamera und zentriert ist! Auf dem Foto sollten nur Ihre Haut und die Läsion zu sehen sein!</string>
+    <string name="prompt_map_1">Achten Sie darauf, dass das Foto gut beleuchtet, sichtbar und nicht körnig ist. Ein schlecht beleuchtetes oder schlecht gerahmtes Foto kann und wird zu weniger genauen Vorhersagen führen.</string>
+    <string name="prompt_map_2">Viel Glück mit dem Foto!</string>
+    <string name="company_mission_statement">Frühwarnungen für gefährliche Krankheiten wie Hautkrebs sollten für alle verfügbar sein. MelaScan bietet dies und ist dabei sicher und für immer kostenlos.</string>
+</resources>

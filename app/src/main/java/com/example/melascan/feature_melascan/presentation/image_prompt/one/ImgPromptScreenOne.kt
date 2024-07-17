@@ -33,6 +33,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -46,7 +47,7 @@ val imgPromptMap: HashMap<Int, @Composable (NavController) -> Unit> = hashMapOf(
     0 to {
         PromptSVGDisplay(id = R.drawable.close_up_prompt) {
             Text(
-                "Make sure the photo of the lesion is up close to the camera and centered!",
+                stringResource(id = R.string.prompt_map_0),
                 color = MaterialTheme.colorScheme.primary,
                 textAlign = TextAlign.Center
             )
@@ -55,7 +56,7 @@ val imgPromptMap: HashMap<Int, @Composable (NavController) -> Unit> = hashMapOf(
     1 to {
         PromptSVGDisplay(id = R.drawable.light_prompt) {
             Text(
-                "Make sure the photo is well lit and visible.",
+                stringResource(id = R.string.prompt_map_1),
                 color = MaterialTheme.colorScheme.primary,
                 textAlign = TextAlign.Center
             )
@@ -64,7 +65,7 @@ val imgPromptMap: HashMap<Int, @Composable (NavController) -> Unit> = hashMapOf(
     2 to {
         val circleColor = MaterialTheme.colorScheme.primary
         PromptSVGDisplay(id = R.drawable.phone_prompt, it) {
-            Text("Good Luck on the photo!", color = MaterialTheme.colorScheme.primary)
+            Text(stringResource(id = R.string.prompt_map_2), color = MaterialTheme.colorScheme.primary)
             Spacer(modifier = Modifier.height(30.dp))
             IconButton(onClick = {
                 it?.navigate(Screen.ImageSelectScreen.route)
@@ -73,13 +74,13 @@ val imgPromptMap: HashMap<Int, @Composable (NavController) -> Unit> = hashMapOf(
             modifier = Modifier
                 .scale(1.5f)
                 .drawBehind {
-                    translate(left = 50f, top = -45f) {
+                    translate(left = 13.dp.toPx(), top = -15.dp.toPx()) {
                         drawCircle(circleColor, radius = 7.dp.toPx())
                     }
-                    translate(left = -50f, top = 35f) {
+                    translate(left = -16.dp.toPx(), top = 14.dp.toPx()) {
                         drawCircle(circleColor, radius = 5.dp.toPx())
                     }
-                    translate(left = 45f, top = 32.5f) {
+                    translate(left = 17.dp.toPx(), top = 11.dp.toPx()) {
                         drawCircle(circleColor, radius = 4.dp.toPx())
                     }
                 }
@@ -141,7 +142,9 @@ fun ImgPromptScreenOne(navController: NavController) {
                     Spacer(modifier = Modifier.height(50.dp))
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(5.dp)
                     ) {
                         imgPromptMap[it]?.invoke(navController)
                         Spacer(modifier = Modifier.height(30.dp))

@@ -73,7 +73,7 @@ fun HomeScreen(
         ) {
             Spacer(modifier = Modifier.height(60.dp))
             Text(
-                text = stringResource(id = R.string.mission_statement),
+                text = stringResource(id = R.string.home_mission_statement),
                 style = MaterialTheme.typography.bodyLarge,
                 fontFamily = ibarra_real,
                 fontWeight = FontWeight.Normal,
@@ -86,7 +86,7 @@ fun HomeScreen(
 
             Divider()
             Text(
-                text= stringResource(id = R.string.disclaimer),
+                text= stringResource(id = R.string.home_disclaimer),
                 style = MaterialTheme.typography.bodyLarge,
                 fontFamily = ibarra_real,
                 fontWeight = FontWeight.Bold,
@@ -98,7 +98,7 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(80.dp))
 
             Text(
-                "Go to images?",
+                stringResource(id = R.string.home_img_redirect),
                 style = MaterialTheme.typography.bodyLarge,
                 fontFamily = ibarra_real,
                 fontWeight = FontWeight.Normal,
@@ -116,13 +116,13 @@ fun HomeScreen(
                 modifier = Modifier
                     .scale(1.5f)
                     .drawBehind {
-                        translate(left = 50f, top = -45f) {
+                        translate(left = 13.dp.toPx(), top = -15.dp.toPx()) {
                             drawCircle(circleColor, radius = 7.dp.toPx())
                         }
-                        translate(left = -58f, top = 25f) {
+                        translate(left = -16.dp.toPx(), top = 14.dp.toPx()) {
                             drawCircle(circleColor, radius = 5.dp.toPx())
                         }
-                        translate(left = 45f, top = 52.5f) {
+                        translate(left = 17.dp.toPx(), top = 11.dp.toPx()) {
                             drawCircle(circleColor, radius = 4.dp.toPx())
                         }
                     }
@@ -151,7 +151,7 @@ fun HomeScreen(
                     .size(45.dp)
             )
             Text(
-                "Psst images and app info is here!",
+                stringResource(id = R.string.home_drawer_prompt),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier

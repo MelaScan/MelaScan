@@ -1,5 +1,47 @@
 <resources>
     <string name="app_name">MelaScan</string>
-    <string name="mission_statement">MelaScan aims to make skin cancer diagnoses more accessible by creating a device that uses AI-based monitoring to analyze the user\'s worrisome lesions from the comfort of one’s home.\n</string>
-    <string name="disclaimer">Note that this is not professional medical advice. Any concerns about your skin should be addressed by a professional dermatologist.</string>
+    <string name="home_mission_statement">"MelaScan aims to make skin cancer diagnoses more accessible by creating using computer vision based monitoring to analyze the user's worrisome lesions from the comfort of one’s home. "</string>
+    <string name="home_disclaimer">Note that this is not professional medical advice. Any concerns about your skin should be addressed by a professional dermatologist.</string>
+    <string name="home_img_redirect">Go to images?</string>
+    <string name="home_drawer_prompt">Psst images and app info is here!</string>
+    <string name="melanoma">melanoma</string>
+    <string name="AK">actinic keratosis</string>
+    <string name="BCC">basal cell carcinoma</string>
+    <string name="BKL">benign keratosis</string>
+    <string name="DF">dermatofibroma</string>
+    <string name="SCC">squamous cell carcinoma</string>
+    <string name="VASC">vascular lesion</string>
+    <string name="NEVUS">melanocytic nevus</string>
+    <string name="OTHER">other/benign</string>
+    <string name="images_FAB">Take a Photo</string>
+    <string name="images_sort_title">Your Images</string>
+    <string name="images_empty_prompt">Currently you haven\'t take any photos. Try taking one by clicking the button below!</string>
+    <string name="images_hidden_prompt">Tap to view!</string>
+    <string name="images_radio_date">Date</string>
+    <string name="images_radio_melanoma">Diagnosis: Melanoma</string>
+    <string name="images_radio_other">Diagnosis: Other</string>
+    <string name="image_AK">% chance of Actinic Keratosis</string>
+    <string name="image_BCC">% chance of Basal Cell Carcinoma</string>
+    <string name="image_BKL">% chance of Benign Keratosis</string>
+    <string name="image_DF">% chance of Dermatofibroma</string>
+    <string name="image_SCC">% chance of Squamous Cell Carcinoma</string>
+    <string name="image_VASC">% chance of Vascular Lesion</string>
+    <string name="image_NEVUS">% chance of Melanocytic nevus</string>
+    <string name="image_OTHER">% chance of Unknown or No Condition</string>
+    <array name="image_prediction_strings">
+        <item>@string/image_AK</item>
+        <item>@string/image_BCC</item>
+        <item>@string/image_BKL</item>
+        <item>@string/image_DF</item>
+        <item>@string/image_SCC</item>
+        <item>@string/image_VASC</item>
+        <item>@string/image_NEVUS</item>
+        <item>@string/image_OTHER</item>
+    </array>
+    <string name="image_more_info">More Information:</string>
+    <string name="image_bod_loc">-Body Location:</string>
+    <string name="prompt_map_0">Make sure the photo of the lesion is up close to the camera and centered! The photo should only have your skin and the lesion in it!</string>
+    <string name="prompt_map_1">Ensure the photo is well lit, visible, and not grainy. A poor lit or poorly framed photo can and will lead to less accurate predictions.</string>
+    <string name="prompt_map_2">Good Luck on the photo!</string>
+    <string name="company_mission_statement">Early warnings for dangerous diseases like skin cancer should be available for all. MelaScan offers this while being secure and free forever.</string>
 </resources>

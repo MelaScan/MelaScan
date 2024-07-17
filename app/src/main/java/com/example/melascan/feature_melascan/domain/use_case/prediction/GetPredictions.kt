@@ -18,13 +18,15 @@ class GetPredictions(
                 is OrderType.Ascending -> {
                     when(predictionsOrder) {
                         is PredictionsOrder.Date -> predictions.sortedBy { it.timestamp }
-                        is PredictionsOrder.Diagnosis -> predictions.sortedBy { it.percentMelanoma }
+                        is PredictionsOrder.DiagnosisMelanoma -> predictions.sortedBy { it.percentMelanoma }
+                        is PredictionsOrder.DiagnosisOther -> predictions.sortedBy { it.percentOTHER }
                     }
                 }
                 is OrderType.Descending -> {
                     when(predictionsOrder) {
                         is PredictionsOrder.Date -> predictions.sortedByDescending { it.timestamp }
-                        is PredictionsOrder.Diagnosis -> predictions.sortedByDescending { it.percentMelanoma }
+                        is PredictionsOrder.DiagnosisMelanoma -> predictions.sortedByDescending { it.percentMelanoma }
+                        is PredictionsOrder.DiagnosisOther -> predictions.sortedByDescending { it.percentOTHER }
                     }
                 }
             }

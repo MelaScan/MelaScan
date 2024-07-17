@@ -29,10 +29,16 @@ fun OrderSection(
                 onSelect = { onOrderChange(PredictionsOrder.Date(imagesOrder.orderType)) }
             )
             DefaultRadioButton(
-                text = "Diagnosis",
-                checked = imagesOrder is PredictionsOrder.Diagnosis,
-                onSelect = { onOrderChange(PredictionsOrder.Diagnosis(imagesOrder.orderType)) }
+                text = "Diagnosis: Melanoma",
+                checked = imagesOrder is PredictionsOrder.DiagnosisMelanoma,
+                onSelect = { onOrderChange(PredictionsOrder.DiagnosisMelanoma(imagesOrder.orderType)) }
             )
+            DefaultRadioButton(
+                text = "Diagnosis: Other",
+                checked = imagesOrder is PredictionsOrder.DiagnosisMelanoma,
+                onSelect = { onOrderChange(PredictionsOrder.DiagnosisOther(imagesOrder.orderType)) }
+            )
+
         }
         Spacer(modifier = Modifier.height(16.dp))
         Row(

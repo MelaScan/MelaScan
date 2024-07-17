@@ -1,7 +1,6 @@
 package com.example.melascan.feature_melascan.presentation.images_screen
 
 import NounHidden598316
-import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -39,10 +38,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.melascan.R
 import com.example.melascan.feature_melascan.presentation.images_screen.components.ImagesItem
 import com.example.melascan.feature_melascan.presentation.images_screen.components.OrderSection
 import com.example.melascan.feature_melascan.presentation.util.Screen
@@ -61,16 +62,16 @@ fun ImagesScreen(
         ExtendedFloatingActionButton(
             onClick = {
                 if(!state.prompts.promptedPhoto) {
-                    Toast.makeText(context, "Redirect to Photo Prompt!", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Redirect to Photo Prompt!", Toast.LENGTH_SHORT).show()
                     viewModel.onEvent(ImagesEvent.SetPromptTrue)
                     navController.navigate(Screen.ImagePromptScreens.One.route)
                 } else {
-                    Toast.makeText(context, "Redirect to Photo!", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Redirect to Photo!", Toast.LENGTH_SHORT).show()
                     navController.navigate(Screen.ImageSelectScreen.route)
                 }
             },
             icon = { Icon(Icons.Filled.CameraAlt, "Camera action button") },
-            text = { Text(text = "Take a Photo") },
+            text = { Text(text = stringResource(id = R.string.images_FAB)) },
             containerColor = MaterialTheme.colorScheme.secondary
         )
     }) { paddingValues ->
@@ -90,7 +91,7 @@ fun ImagesScreen(
             ) {
                 Spacer(modifier = Modifier.width(2.dp))
                 Text(
-                    text = "Your Images",
+                    text = stringResource(id = R.string.images_sort_title),
                     style = MaterialTheme.typography.headlineMedium,
                     color = MaterialTheme.colorScheme.secondary
                 )
@@ -122,7 +123,7 @@ fun ImagesScreen(
 
             if (state.predictions.isEmpty()) {
                 Text(
-                    "Currently you haven't take any photos. Try taking one by clicking the button below!",
+                    stringResource(id = R.string.images_empty_prompt),
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.secondary
                 )
@@ -164,7 +165,7 @@ fun ImagesScreen(
                                         .fillMaxSize()
                                 )
                                 Text(
-                                    "Tap to view!",
+                                    stringResource(id = R.string.images_hidden_prompt),
                                     color = MaterialTheme.colorScheme.onSecondaryContainer,
                                     modifier = Modifier
                                         .align(Alignment.BottomCenter)

@@ -29,10 +29,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -43,24 +43,13 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.melascan.R
 import com.example.melascan.feature_melascan.domain.model.BodyLocation
 import com.example.melascan.feature_melascan.presentation.image_screen.util.ExpandableCard
 import com.example.melascan.feature_melascan.presentation.image_screen.util.ExpandableContent
 import com.example.melascan.feature_melascan.presentation.util.components.MelaScaffold
 import java.util.Calendar
 import java.util.TimeZone
-import kotlin.math.round
-
-val predictionStrings = arrayOf(
-    "% chance of Actinic Keratosis",
-    "% chance of Basal Cell Carcinoma",
-    "% chance of Benign Keratosis",
-    "% chance of Dermatofibroma",
-    "% chance of Squamous Cell Carcinoma",
-    "% chance of Vascular Lesion",
-    "% chance of Melanocytic nevus",
-    "% chance of Unknown or No Condition"
-)
 
 @Composable
 fun ImageScreen(
@@ -71,6 +60,7 @@ fun ImageScreen(
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
 
+    val predictionStrings = context.resources.getStringArray(R.array.image_prediction_strings)
     imageViewModel.setup(id)
 
     var bmp: Bitmap = imageViewModel.state.value?.let {
@@ -88,7 +78,7 @@ fun ImageScreen(
 
         formatDate = getTime(imageViewModel.state.value?.timestamp) ?: "N/A"
     }
-
+    val melanoma = stringResource(id = R.string.melanoma)
     val scrollState = rememberScrollState()
     MelaScaffold(navController = navController, scope = coroutineScope) {paddingValues ->
         Column(
@@ -128,7 +118,7 @@ fun ImageScreen(
                         color = MaterialTheme.colorScheme.secondary
                     )
                     Text(
-                        text = "${((imageViewModel.state.value?.percentMelanoma ?: 0f) * 100).toInt()}% melanoma",
+                        text = "${((imageViewModel.state.value?.percentMelanoma ?: 0f) * 100).toInt()}% $melanoma",
                         modifier = Modifier.align(Alignment.Center),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                         textAlign = TextAlign.Center,
@@ -137,7 +127,7 @@ fun ImageScreen(
             }
 
             Text(
-                text = "More Information:",
+                text = stringResource(id = R.string.image_more_info),
                 textAlign = TextAlign.Left,
                 modifier = Modifier.padding(10.dp),
                 fontWeight = FontWeight.Bold,

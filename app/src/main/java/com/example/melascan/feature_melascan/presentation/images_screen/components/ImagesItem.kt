@@ -15,7 +15,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.melascan.R
 import com.example.melascan.feature_melascan.domain.model.Prediction
 
 @Composable
@@ -25,6 +27,20 @@ fun ImagesItem(
     modifier: Modifier = Modifier,
 ) {
     val shape = RoundedCornerShape(8.dp)
+
+
+    val predictionArray = arrayOf(
+        prediction.percentMelanoma,
+        prediction.percentAK,
+        prediction.percentBCC,
+        prediction.percentBKL,
+        prediction.percentDF,
+        prediction.percentSCC,
+        prediction.percentVASC,
+        prediction.percentNEVUS,
+        prediction.percentOTHER
+    )
+
     Box(
         modifier = modifier,
         contentAlignment = Alignment.Center
@@ -46,10 +62,17 @@ fun ImagesItem(
                 contentAlignment = Alignment.BottomCenter
             ) {
                 Text(
-                    text = if (prediction.percentMelanoma in (0.0f..0.5f)) {
-                        "Benign"
-                    } else {
-                        "Malignant"
+                    text = when(predictionArray.indices.maxBy { predictionArray[it] }) {
+                        0 -> stringResource(id = R.string.melanoma)
+                        1 -> stringResource(id = R.string.AK)
+                        2 -> stringResource(id = R.string.BCC)
+                        3 -> stringResource(id = R.string.BKL)
+                        4 -> stringResource(id = R.string.DF)
+                        5 -> stringResource(id = R.string.SCC)
+                        6 -> stringResource(id = R.string.VASC)
+                        7 -> stringResource(id = R.string.NEVUS)
+                        8 -> stringResource(id = R.string.OTHER)
+                        else -> "ERR!"
                     },
                     color = Color.White,
                 )

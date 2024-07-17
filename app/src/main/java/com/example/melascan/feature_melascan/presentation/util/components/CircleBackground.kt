@@ -13,15 +13,15 @@ import androidx.compose.ui.unit.dp
 fun CircleBackground() {
     val onBg = Color(0xffd8dcd2)
     Canvas(modifier = Modifier.fillMaxSize()) {
-        translate(left = 750f, top = -300f) {
+        translate(left = 185.dp.toPx(), top = -100.dp.toPx()) {
             drawCircle(onBg, radius = 200.dp.toPx())
         }
 
-        translate(left = -800f, top = 50f) {
+        translate(left = -200.dp.toPx(), top = 15.dp.toPx()) {
             drawCircle(onBg, radius = 150.dp.toPx())
         }
 
-        translate(left = 500f, top = 975f) {
+        translate(left = 120.dp.toPx(), top = 275.dp.toPx()) {
             drawCircle(onBg, radius = 125.dp.toPx())
         }
 
