@@ -49,4 +49,3 @@ enum class BodyLocation {
 }
 
 class InvalidPredictionException(message: String) : Exception(message)
-class InvalidPredictionImageException(message: String) : Exception(message)

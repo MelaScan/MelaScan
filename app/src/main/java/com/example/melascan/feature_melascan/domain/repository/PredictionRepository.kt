@@ -18,5 +18,4 @@ interface PredictionRepository {
     suspend fun getSize(): Int
 
     suspend fun getLatestPrediction(): Prediction
-
 }
